@@ -30,11 +30,11 @@ export function logout() {
 }
 
 export function onUserStateChange(callback) {
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     // 1. 사용자가 있는 경우에 (로그인한 경우)
-    user && adminUser(user);
-    console.log(user);
-    callback(user);
+    const updatedUser = user ? await adminUser(user) : null;
+    console.log(updatedUser);
+    callback(updatedUser);
   });
 }
 
@@ -45,6 +45,9 @@ function adminUser(user) {
     if (snapshot.exists()) {
       const admins = snapshot.val();
       console.log(admins);
+      const isAdmin = admins.includes(user.uid);
+      return { ...user, isAdmin };
     }
+    return user;
   });
 }
