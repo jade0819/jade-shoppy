@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { parse, v4 as uuid } from "uuid";
 import {
   getAuth,
   signInWithPopup,
@@ -6,7 +7,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getDatabase, ref, get } from "firebase/database";
+import { getDatabase, ref, set, get } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -47,5 +48,16 @@ export function adminUser(user) {
       return { ...user, isAdmin };
     }
     return user;
+  });
+}
+
+export async function addNewProduct(product, imageUrl) {
+  const id = uuid();
+  set(ref(database, `products/${uuid()}`), {
+    ...product,
+    id,
+    price: parseInt(product.price),
+    image: imageUrl,
+    options: product.options.split(","),
   });
 }

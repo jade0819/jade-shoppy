@@ -5,8 +5,6 @@ import { useAuthContext } from "../components/context/AuthContext";
 export default function ProtectedRoute({ children, requireAdmin }) {
   const { loading, user } = useAuthContext();
 
-  console.log(user);
-
   if (loading) {
     return null;
   }

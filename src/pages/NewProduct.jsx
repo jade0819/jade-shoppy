@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { addNewProduct } from "../api/firebase";
+import { uploadImage } from "../api/uploader";
 import Button from "../components/ui/Button";
 
 export default function NewProduct() {
@@ -16,15 +18,24 @@ export default function NewProduct() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    // 제품의 사진을 Cloudinary에 업로드 하고 URL을 획득
+
+    uploadImage(file).then((url) => {
+      console.log(url);
+      // FIrebase에 새로운 제품을 추가함
+      addNewProduct(product, url);
+      // 초기화
+    });
   };
 
   return (
     <section>
+      {file && <img src={URL.createObjectURL(file)} alt="local file" />}
       <form onSubmit={handleSubmit}>
         <input
           type="file"
-          accept="image/*"
           name="file"
+          accept="image/*"
           required
           onChange={handleChange}
         />
