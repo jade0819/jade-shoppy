@@ -8,6 +8,9 @@ module.exports = {
         "brand-sub": "#B7DCCC",
         "brand-beige": "#F9F7E8",
       },
+      backgroundImage: {
+        banner: `url('../public/images/banner.jpg')`,
+      },
     },
   },
   plugins: [],
