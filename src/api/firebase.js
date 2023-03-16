@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { parse, v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid";
 import {
   getAuth,
   signInWithPopup,
@@ -53,7 +53,7 @@ export function adminUser(user) {
 
 export async function addNewProduct(product, imageUrl) {
   const id = uuid();
-  set(ref(database, `products/${uuid()}`), {
+  return set(ref(database, `products/${id}`), {
     ...product,
     id,
     price: parseInt(product.price),
