@@ -6,7 +6,7 @@ import {
   signInWithPopup,
   onAuthStateChanged,
 } from "firebase/auth";
-import { adminUser } from "../../api/firebase";
+import { adminUser } from "../api/firebase";
 
 const AuthContext = createContext();
 
@@ -39,7 +39,9 @@ export function AuthContextProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ loading, user, login, logout }}>
+    <AuthContext.Provider
+      value={{ loading, user, uid: user && user.uid, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
