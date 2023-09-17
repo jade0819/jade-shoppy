@@ -25,10 +25,8 @@ export default function NewProduct() {
 
     setIsUploading(true);
 
-    // 제품의 사진을 Cloudinary에 업로드 하고 URL을 획득
     uploadImage(file)
       .then((url) => {
-        // Firebase에 새로운 제품을 추가함
         addProduct.mutate(
           { product, url },
           {
