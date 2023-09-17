@@ -26,7 +26,7 @@ export function AuthContextProvider({ children }) {
       }
     });
     return () => stopListen();
-  }, [adminUser, auth]);
+  }, [auth]);
 
   const login = () => {
     signInWithPopup(auth, provider).catch((error) => {
